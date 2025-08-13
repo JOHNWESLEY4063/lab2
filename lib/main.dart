@@ -9,7 +9,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final List<Map<String, dynamic>> weatherData = [
       {
         'weather': 'Sunny',
@@ -61,7 +60,6 @@ class MyApp extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            
             ...weatherData.map((item) => MyListItem(
                   weather: item['weather'],
                   imageurl: item['imageurl'],
@@ -121,12 +119,26 @@ class MyListItem extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(height: 16),
-                  Text(
-                    country,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.green[700],
-                      fontWeight: FontWeight.w500,
+                  ElevatedButton(
+                    onPressed: () {
+                      // You can add your desired action here
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Country: $country')),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green[700],
+                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      country,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
