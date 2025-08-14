@@ -4,48 +4,64 @@ void main() {
   runApp(MyApp());
 }
 
+// Define a custom WeatherReport class instead of using Map or dynamic.
+class WeatherReport {
+  final String weather;
+  final String imageurl;
+  final double temperature;
+  final String country;
+
+  WeatherReport({
+    required this.weather,
+    required this.imageurl,
+    required this.temperature,
+    required this.country,
+  });
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> weatherData = [
-      {
-        'weather': 'Sunny',
-        'imageurl': 'assets/images/1.jpg',
-        'temperature': 35.0,
-        'country': 'India',
-      },
-      {
-        'weather': 'Cloudy',
-        'imageurl': 'assets/images/2.jpg',
-        'temperature': 22.0,
-        'country': 'UK',
-      },
-      {
-        'weather': 'Rainy',
-        'imageurl': 'assets/images/3.jpg',
-        'temperature': 18.5,
-        'country': 'Brazil',
-      },
-      {
-        'weather': 'Stormy',
-        'imageurl': 'assets/images/4.jpg',
-        'temperature': 15.0,
-        'country': 'USA',
-      },
-      {
-        'weather': 'Snowy',
-        'imageurl': 'assets/images/5.jpg',
-        'temperature': -2.0,
-        'country': 'Canada',
-      },
-      {
-        'weather': 'Windy',
-        'imageurl': 'assets/images/6.jpg',
-        'temperature': 25.0,
-        'country': 'Australia',
-      },
+  
+    final List<WeatherReport> weatherData = [
+      WeatherReport(
+        weather: 'Sunny',
+        imageurl: 'assets/images/1.jpg',
+        temperature: 35.0,
+        country: 'India',
+      ),
+      WeatherReport(
+        weather: 'Cloudy',
+        imageurl: 'assets/images/2.jpg',
+        temperature: 22.0,
+        country: 'UK',
+      ),
+      WeatherReport(
+        weather: 'Rainy',
+        imageurl: 'assets/images/3.jpg',
+        temperature: 18.5,
+        country: 'Brazil',
+      ),
+      WeatherReport(
+        weather: 'Stormy',
+        imageurl: 'assets/images/4.jpg',
+        temperature: 15.0,
+        country: 'USA',
+      ),
+      WeatherReport(
+        weather: 'Snowy',
+        imageurl: 'assets/images/5.jpg',
+        temperature: -2.0,
+        country: 'Canada',
+      ),
+      WeatherReport(
+        weather: 'Windy',
+        imageurl: 'assets/images/6.jpg',
+        temperature: 25.0,
+        country: 'Australia',
+      ),
     ];
 
     return MaterialApp(
@@ -61,10 +77,10 @@ class MyApp extends StatelessWidget {
         body: ListView(
           children: [
             ...weatherData.map((item) => MyListItem(
-                  weather: item['weather'],
-                  imageurl: item['imageurl'],
-                  temperature: item['temperature'],
-                  country: item['country'],
+                  weather: item.weather,
+                  imageurl: item.imageurl,
+                  temperature: item.temperature,
+                  country: item.country,
                 )),
           ],
         ),
@@ -119,26 +135,12 @@ class MyListItem extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      // You can add your desired action here
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Country: $country')),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green[700],
-                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: Text(
-                      country,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  Text(
+                    country,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.green[700],
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
