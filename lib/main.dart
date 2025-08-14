@@ -4,84 +4,54 @@ void main() {
   runApp(MyApp());
 }
 
-// Define a custom WeatherReport class instead of using Map or dynamic.
-class WeatherReport {
-  final String weather;
-  final String imageurl;
-  final double temperature;
-  final String country;
-
-  WeatherReport({
-    required this.weather,
-    required this.imageurl,
-    required this.temperature,
-    required this.country,
-  });
-}
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-  
-    final List<WeatherReport> weatherData = [
-      WeatherReport(
-        weather: 'Sunny',
-        imageurl: 'assets/images/1.jpg',
-        temperature: 35.0,
-        country: 'India',
-      ),
-      WeatherReport(
-        weather: 'Cloudy',
-        imageurl: 'assets/images/2.jpg',
-        temperature: 22.0,
-        country: 'UK',
-      ),
-      WeatherReport(
-        weather: 'Rainy',
-        imageurl: 'assets/images/3.jpg',
-        temperature: 18.5,
-        country: 'Brazil',
-      ),
-      WeatherReport(
-        weather: 'Stormy',
-        imageurl: 'assets/images/4.jpg',
-        temperature: 15.0,
-        country: 'USA',
-      ),
-      WeatherReport(
-        weather: 'Snowy',
-        imageurl: 'assets/images/5.jpg',
-        temperature: -2.0,
-        country: 'Canada',
-      ),
-      WeatherReport(
-        weather: 'Windy',
-        imageurl: 'assets/images/6.jpg',
-        temperature: 25.0,
-        country: 'Australia',
-      ),
-    ];
-
     return MaterialApp(
-      title: "Daily Weather Report",
+      title: 'Weather Report',
       home: Scaffold(
         appBar: AppBar(
           title: Text(
             'Weather Report',
-            style: TextStyle(fontSize: 20, letterSpacing: 12),
+            style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.blue,
+          centerTitle: true,
         ),
         body: ListView(
           children: [
-            ...weatherData.map((item) => MyListItem(
-                  weather: item.weather,
-                  imageurl: item.imageurl,
-                  temperature: item.temperature,
-                  country: item.country,
-                )),
+            MyWeatherItem(
+              weather: 'Sunny',
+              url: 'assets/images/1.jpg',
+              temparature: 35.5,
+              country: 'India',
+            ),
+            MyWeatherItem(
+              weather: 'Cloudy',
+              url: 'assets/images/2.jpg',
+              temparature: 28.0,
+              country: 'England',
+            ),
+            MyWeatherItem(
+              weather: 'Rainy',
+              url: 'assets/images/3.jpg',
+              temparature: 22.7,
+              country: 'Japan',
+            ),
+            MyWeatherItem(
+              weather: 'Snow',
+              url: 'assets/images/4.jpg',
+              temparature: -5.0,
+              country: 'Russia',
+            ),
+            MyWeatherItem(
+              weather: 'Windy',
+              url: 'assets/images/5.jpg',
+              temparature: 18.3,
+              country: 'Canada',
+            ),
           ],
         ),
       ),
@@ -89,14 +59,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyListItem extends StatelessWidget {
-  final String weather, imageurl, country;
-  final double temperature;
-  const MyListItem({
+class MyWeatherItem extends StatelessWidget {
+  final String weather, url, country;
+  final double temparature;
+  MyWeatherItem({
     super.key,
     required this.weather,
-    required this.imageurl,
-    required this.temperature,
+    required this.url,
+    required this.temparature,
     required this.country,
   });
 
@@ -104,49 +74,48 @@ class MyListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.red, width: 0.5),
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: Colors.limeAccent, width: 0.5),
       ),
       elevation: 1,
       color: Colors.white,
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.all(13),
-            color: Colors.grey[200],
+            padding: EdgeInsets.all(12),
+            color: Colors.lightBlueAccent,
             width: 200,
             height: 200,
-            child: Image.asset(imageurl, width: 160, height: 150, fit: BoxFit.cover),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    weather,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    '${temperature.toStringAsFixed(1)}°C',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    country,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.green[700],
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
+            child: Image.asset(
+              url,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
             ),
           ),
+          SizedBox(width: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(weather,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+              SizedBox(height: 20),
+              Text(
+                  "${temparature}°C",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+              SizedBox(height: 20),
+              Text(country,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              SizedBox(height: 20),
+              ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 25, 65, 1),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Text("See Details")),
+            ],
+          )
         ],
       ),
     );
